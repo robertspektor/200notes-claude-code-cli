@@ -27,10 +27,10 @@ npm org set 200notes username developer
 ### 2. Repository auf GitHub erstellen (⏱️ 15 Minuten)
 
 ```bash
-# Repository erstellen: https://github.com/200notes/claude-code-integration
+# Repository erstellen: https://github.com/robertspektor/200notes-claude-code-cli
 # Dann Code pushen:
 
-git remote add origin https://github.com/200notes/claude-code-integration.git
+git remote add origin https://github.com/robertspektor/200notes-claude-code-cli.git
 git branch -M main
 git add .
 git commit -m "Initial release: Claude Code integration v0.1.0"
@@ -94,13 +94,13 @@ Benutzer können das Package jetzt sofort installieren:
 
 ### Option 1: Quick Install Script (Empfohlen)
 ```bash
-curl -fsSL https://raw.githubusercontent.com/200notes/claude-code-integration/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/robertspektor/200notes-claude-code-cli/main/install.sh | bash
 ```
 
 ### Option 2: Manuelle Installation
 ```bash
-git clone https://github.com/200notes/claude-code-integration.git
-cd claude-code-integration
+git clone https://github.com/robertspektor/200notes-claude-code-cli.git
+cd 200notes-claude-code-cli
 npm install && npm run build && npm link
 ```
 
@@ -110,7 +110,7 @@ npm install && npm run build && npm link
 **Version:** `0.1.0`  
 **Main:** `dist/index.js`  
 **Binary:** `200notes` → `dist/cli.js`  
-**Repository:** https://github.com/200notes/claude-code-integration  
+**Repository:** https://github.com/robertspektor/200notes-claude-code-cli  
 **Documentation:** https://docs.200notes.com/claude-code  
 
 ## 🎉 Nach NPM-Veröffentlichung
@@ -138,7 +138,7 @@ Sobald das Package auf NPM verfügbar ist:
 
 ## 📞 Support Strategy
 
-- **GitHub Issues:** https://github.com/200notes/claude-code-integration/issues
+- **GitHub Issues:** https://github.com/robertspektor/200notes-claude-code-cli/issues
 - **Documentation:** https://docs.200notes.com/claude-code
 - **Email Support:** support@200notes.com
 - **Discord Community:** (optional)

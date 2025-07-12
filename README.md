@@ -27,14 +27,14 @@ npm install -g @200notes/claude-code
 #### Option 2: Quick Install Script (Recommended)
 ```bash
 # One-line installer
-curl -fsSL https://raw.githubusercontent.com/200notes/claude-code-integration/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/robertspektor/200notes-claude-code-cli/main/install.sh | bash
 ```
 
 #### Option 3: Manual Git Installation
 ```bash
 # Clone and build the package
-git clone https://github.com/200notes/claude-code-integration.git
-cd claude-code-integration
+git clone https://github.com/robertspektor/200notes-claude-code-cli.git
+cd 200notes-claude-code-cli
 npm install
 npm run build
 
@@ -45,9 +45,9 @@ npm link
 #### Option 4: Direct Download
 ```bash
 # Download and install latest release
-curl -L https://github.com/200notes/claude-code-integration/archive/main.zip -o claude-code.zip
+curl -L https://github.com/robertspektor/200notes-claude-code-cli/archive/main.zip -o claude-code.zip
 unzip claude-code.zip
-cd claude-code-integration-main
+cd 200notes-claude-code-cli-main
 npm install && npm run build && npm link
 ```
 
@@ -385,8 +385,8 @@ For contributors and development:
 
 ```bash
 # Clone the repository
-git clone https://github.com/200notes/claude-code-integration.git
-cd claude-code-integration
+git clone https://github.com/robertspektor/200notes-claude-code-cli.git
+cd 200notes-claude-code-cli
 
 # Install dependencies
 npm install
@@ -407,7 +407,7 @@ npm link
 ## 🆘 Support
 
 - **Documentation**: [docs.200notes.com](https://docs.200notes.com)
-- **Issues**: [GitHub Issues](https://github.com/200notes/claude-code-integration/issues)
+- **Issues**: [GitHub Issues](https://github.com/robertspektor/200notes-claude-code-cli/issues)
 - **Discord**: [Join our community](https://discord.gg/200notes)
 - **Email**: support@200notes.com
 

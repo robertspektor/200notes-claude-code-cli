@@ -44,8 +44,8 @@ cd "$TMP_DIR"
 echo "📦 Downloading 200notes Claude Code integration..."
 
 # Clone the repository
-git clone https://github.com/200notes/claude-code-integration.git
-cd claude-code-integration
+git clone https://github.com/robertspektor/200notes-claude-code-cli.git
+cd 200notes-claude-code-cli
 
 echo "🔨 Building package..."
 
