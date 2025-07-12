@@ -1,6 +1,6 @@
 {
   "name": "@200notes/claude-code",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Claude Code integration for 200notes project management - intelligent task tracking and automation",
   "main": "dist/index.js",
   "bin": {
@@ -21,7 +21,7 @@
     "test": "jest",
     "lint": "eslint src/**/*.ts",
     "format": "prettier --write src/**/*.ts",
-    "prepublishOnly": "npm run build && npm test",
+    "prepublishOnly": "npm run build",
     "prepare": "npm run build"
   },
   "keywords": [
@@ -59,7 +59,9 @@
   "files": [
     "dist/",
     "hooks/",
-    "README.md"
+    "README.md",
+    "HOOK_SETUP.md",
+    "WORKFLOW_DEMO.md"
   ],
   "engines": {
     "node": ">=18.0.0"

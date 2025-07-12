@@ -134,15 +134,44 @@ program
 program
   .command('sync')
   .description('Synchronize with 200notes')
-  .action(async () => {
+  .option('--update-claude-md', 'Update CLAUDE.md with current project context')
+  .action(async (options) => {
     console.log(chalk.blue('🔄 Synchronizing with 200notes...'));
     
     const { ConfigManager } = await import('./lib/config');
+    const { NotesApiClient } = await import('./lib/api');
+    const { ClaudeMdManager } = await import('./lib/claudeMd');
     
+    const apiConfig = await ConfigManager.getApiConfig();
     const projectConfig = await ConfigManager.getProjectConfig();
-    if (!projectConfig) {
-      console.error(chalk.red('No project configuration found. Run "200notes init" first.'));
+    
+    if (!apiConfig || !projectConfig) {
+      console.error(chalk.red('No configuration found. Run "200notes init" first.'));
       return;
+    }
+
+    // Sync with API
+    const apiClient = new NotesApiClient(apiConfig);
+    const tasks = await apiClient.getTasks(projectConfig.projectId);
+    
+    // Update CLAUDE.md if requested
+    if (options.updateClaudeMd) {
+      console.log(chalk.gray('📝 Updating CLAUDE.md...'));
+      
+      // Create a project object for ClaudeMdManager
+      const project = {
+        id: projectConfig.projectId,
+        name: projectConfig.name,
+        description: '',
+        owner_id: 0,
+        is_favorite: false,
+        created_at: '',
+        updated_at: ''
+      };
+      
+      await ClaudeMdManager.updateClaudeMd(project, tasks);
+      
+      console.log(chalk.green('✅ CLAUDE.md updated'));
     }
 
     // Update last sync time

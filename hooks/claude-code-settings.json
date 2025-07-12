@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "name": "200notes-task-tracker",
+        "description": "Automatically update 200notes tasks based on file changes",
+        "script": "./hooks/post_tool_use.sh",
+        "enabled": true,
+        "config": {
+          "debug": false,
+          "exclude_patterns": ["node_modules/**", "dist/**", ".git/**", "*.log"],
+          "supported_tools": ["Edit", "Write", "MultiEdit", "Bash"]
+        }
+      }
+    ]
+  }
+}

@@ -3,28 +3,34 @@
 [![npm version](https://badge.fury.io/js/%40200notes%2Fclaude-code.svg)](https://badge.fury.io/js/%40200notes%2Fclaude-code)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+**NEW in v0.2.0**: 🎉 **Claude Code Hooks** - Fully automatic task tracking! No more manual PROJECT.md updates.
+
 Seamless integration between Claude Code and 200notes project management. Automatically track tasks, update progress, and maintain project context during your AI-assisted development sessions.
 
 ## ✨ Features
 
-- **🔄 Automatic Task Tracking**: Tasks are automatically updated based on your code changes
-- **🤖 Claude Code Hooks**: Intelligent hooks that understand your development workflow
-- **📋 Smart Task Mapping**: Advanced algorithms to map code changes to relevant tasks
-- **📝 CLAUDE.md Integration**: Automatically generated project context for Claude
-- **🚀 CLI Tools**: Powerful command-line interface for project management
-- **⚡ Real-time Sync**: Keep your team in sync with automatic progress updates
+### 🆕 **v0.2.0 - Claude Code Hooks (NEW!)**
+- **🔄 Fully Automatic Task Tracking**: Zero manual updates - tasks update automatically when you code
+- **🎯 Smart File-to-Task Mapping**: `PaymentController.php` → automatically finds "payment", "stripe" tasks
+- **✅ Commit Pattern Recognition**: `git commit -m "closes #123"` → Task #123 automatically marked done
+- **📝 Auto CLAUDE.md Updates**: Project context refreshed automatically after code changes
+
+### 🚀 **Core Features**
+- **🤖 Claude Code Integration**: Deep integration with Claude Code workflow  
+- **📋 Intelligent Task Management**: Advanced CLI for creating, updating, and tracking tasks
+- **⚡ Real-time Team Sync**: Keep your team in sync with automatic progress updates
+- **🔍 Keyword-Based Task Mapping**: Find and update tasks using file keywords
 
 ## 🚀 Quick Start
 
 ### Installation
 
-#### Option 1: NPM (Coming Soon)
+#### Option 1: NPM (Recommended)
 ```bash
 npm install -g @200notes/claude-code
 ```
-*Note: The NPM package will be available soon. Use the alternative methods below for now.*
 
-#### Option 2: Quick Install Script (Recommended)
+#### Option 2: Quick Install Script
 ```bash
 # One-line installer
 curl -fsSL https://raw.githubusercontent.com/robertspektor/200notes-claude-code-cli/main/install.sh | bash
@@ -51,7 +57,7 @@ cd 200notes-claude-code-cli-main
 npm install && npm run build && npm link
 ```
 
-#### Option 5: Using npx (After NPM release)
+#### Option 5: Using npx
 ```bash
 npx @200notes/claude-code init "My Project"
 ```
@@ -69,7 +75,16 @@ cd your-project
 200notes init "My Awesome Project"
 ```
 
-3. **Start Claude Code** - tasks will now be automatically tracked!
+3. **Set up Claude Code Hooks** (for automatic tracking):
+```bash
+# Copy hooks to your project
+cp -r "$(npm root -g)/@200notes/claude-code/hooks" ./hooks/
+chmod +x hooks/*.sh
+
+# Configure Claude Code (see HOOK_SETUP.md for details)
+```
+
+4. **Start Claude Code** - tasks will now be automatically tracked!
 
 ### Example Workflow
 
@@ -85,6 +100,12 @@ cd your-project
 
 # Mark a task as completed
 200notes task done 123
+
+# NEW in v0.2.0: Update tasks by file keywords
+200notes task update dummy --file-keywords "auth,payment" --status in_progress
+
+# Auto-update CLAUDE.md with current project context
+200notes sync --update-claude-md
 ```
 
 ## 📖 How It Works
@@ -203,6 +224,10 @@ Stored in `.200notes.json` in your project root:
 
 ## 🔧 Claude Code Hooks
 
+**NEW in v0.2.0**: Fully automatic task tracking through Claude Code integration!
+
+👉 **See [HOOK_SETUP.md](HOOK_SETUP.md) for complete installation guide**
+
 The integration installs Claude Code hooks that automatically:
 
 ### PostToolUse Hook
@@ -317,6 +342,23 @@ await client.updateTaskStatus(taskId, 'in_progress');
 - **Only metadata** (file paths, task mappings) are synchronized
 - **Local processing** for keyword extraction and task mapping
 
+## 📋 Changelog
+
+### v0.2.0 (Latest) - Claude Code Hooks
+- ✅ **NEW**: Fully automatic task tracking via Claude Code hooks
+- ✅ **NEW**: `--file-keywords` parameter for task updates by file patterns
+- ✅ **NEW**: `--update-claude-md` for automatic CLAUDE.md generation
+- ✅ **NEW**: Commit pattern recognition (`closes #123` → task done)
+- ✅ **NEW**: Smart file-to-task mapping algorithms
+- ✅ **NEW**: Complete hook setup documentation
+- 🔧 **Improved**: CLI commands and error handling
+
+### v0.1.0 - Initial Release
+- ✅ Basic CLI for task management
+- ✅ 200notes API integration
+- ✅ Project initialization and authentication
+- ✅ Manual task creation and updates
+
 ## 🤝 Contributing
 
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
@@ -333,7 +375,7 @@ MIT License - see the [LICENSE](LICENSE) file for details.
 ```bash
 npm error 404 Not Found - GET https://registry.npmjs.org/@200notes%2fclaude-code
 ```
-**Solution**: The NPM package is not yet published. Use the [Git installation method](#option-2-install-from-git-current-method) instead.
+**Solution**: Make sure you're using the correct package name: `@200notes/claude-code`. If the error persists, try the [Git installation method](#option-2-quick-install-script) instead.
 
 #### Permission errors during global install
 ```bash

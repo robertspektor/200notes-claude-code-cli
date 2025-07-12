@@ -3,6 +3,7 @@ import inquirer from 'inquirer';
 import chalk from 'chalk';
 import { ConfigManager } from '../lib/config';
 import { NotesApiClient } from '../lib/api';
+import { TaskMappingEngine } from '../lib/taskMapping';
 
 export function createTaskCommand(): Command {
   const taskCommand = new Command('task')
@@ -36,9 +37,14 @@ export function createTaskCommand(): Command {
     .option('-s, --status <status>', 'Task status (todo, in_progress, done)')
     .option('--tags <tags>', 'Comma-separated tags')
     .option('--due <date>', 'Due date (YYYY-MM-DD)')
+    .option('--file-keywords <keywords>', 'Update tasks matching file keywords')
     .action(async (taskId, options) => {
       try {
-        await updateTask(parseInt(taskId), options);
+        if (options.fileKeywords) {
+          await updateTasksByKeywords(options.fileKeywords, options);
+        } else {
+          await updateTask(parseInt(taskId), options);
+        }
       } catch (error) {
         console.error(chalk.red('Error updating task:'), error.message);
         process.exit(1);
@@ -327,4 +333,66 @@ async function deleteTask(taskId: number, options: { force?: boolean }): Promise
   await apiClient.deleteTask(taskId);
 
   console.log(chalk.green('✅ Task deleted'));
+}
+
+async function updateTasksByKeywords(
+  keywords: string,
+  options: {
+    title?: string;
+    description?: string;
+    priority?: string;
+    status?: string;
+    tags?: string;
+    due?: string;
+  }
+): Promise<void> {
+  const { apiClient, projectConfig } = await getApiClientAndProject();
+
+  // Parse keywords
+  const keywordList = keywords.split(',').map(k => k.trim()).filter(Boolean);
+  
+  console.log(chalk.gray(`Searching for tasks with keywords: ${keywordList.join(', ')}`));
+  
+  // Find matching tasks
+  const tasks = await apiClient.findTasksByKeywords(projectConfig.projectId, keywordList);
+  
+  if (tasks.length === 0) {
+    console.log(chalk.yellow('No tasks found matching the provided keywords.'));
+    return;
+  }
+
+  console.log(chalk.blue(`Found ${tasks.length} matching task(s):`));
+  tasks.forEach(task => {
+    console.log(chalk.gray(`  - ${task.title} (ID: ${task.id}) - ${task.status}`));
+  });
+
+  // Prepare updates
+  const updates: any = {};
+  if (options.title) updates.title = options.title;
+  if (options.description !== undefined) updates.description = options.description;
+  if (options.priority) updates.priority = options.priority;
+  if (options.status) updates.status = options.status;
+  if (options.due !== undefined) updates.due_date = options.due || null;
+
+  if (options.tags !== undefined) {
+    updates.tags = options.tags
+      ? options.tags.split(',').map(tag => tag.trim()).filter(Boolean)
+      : [];
+  }
+
+  if (Object.keys(updates).length === 0) {
+    throw new Error('No updates provided');
+  }
+
+  // Update each matching task
+  console.log(chalk.gray('Updating matching tasks...'));
+  
+  for (const task of tasks) {
+    try {
+      await apiClient.updateTask(task.id, updates);
+      console.log(chalk.green(`✅ Updated: ${task.title}`));
+    } catch (error) {
+      console.error(chalk.red(`❌ Failed to update ${task.title}: ${error.message}`));
+    }
+  }
 }
