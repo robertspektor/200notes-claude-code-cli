@@ -1,0 +1,67 @@
+{
+  "name": "@200notes/claude-code",
+  "version": "0.1.0",
+  "description": "Claude Code integration for 200notes project management - intelligent task tracking and automation",
+  "main": "dist/index.js",
+  "bin": {
+    "200notes": "dist/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/200notes/claude-code-integration.git"
+  },
+  "homepage": "https://docs.200notes.com/claude-code",
+  "bugs": {
+    "url": "https://github.com/200notes/claude-code-integration/issues"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/cli.js",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts",
+    "format": "prettier --write src/**/*.ts",
+    "prepublishOnly": "npm run build && npm test",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "200notes",
+    "claude-code",
+    "project-management",
+    "task-management",
+    "ai",
+    "automation"
+  ],
+  "author": "200notes Team",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "commander": "^11.1.0",
+    "inquirer": "^9.2.0",
+    "chalk": "^5.3.0",
+    "fs-extra": "^11.2.0",
+    "dotenv": "^16.3.0",
+    "node-watch": "^0.7.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/inquirer": "^9.0.0",
+    "@types/fs-extra": "^11.0.0",
+    "typescript": "^5.3.0",
+    "eslint": "^8.56.0",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "prettier": "^3.1.0",
+    "jest": "^29.7.0",
+    "@types/jest": "^29.5.0",
+    "ts-jest": "^29.1.0"
+  },
+  "files": [
+    "dist/",
+    "hooks/",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

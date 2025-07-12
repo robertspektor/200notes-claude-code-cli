@@ -1,0 +1,32 @@
+{
+  "projectId": "550e8400-e29b-41d4-a716-446655440000",
+  "name": "Example Project",
+  "lastSync": "2024-01-15T10:30:00.000Z",
+  "taskMappings": {
+    "src/auth/": [123, 124, 125],
+    "src/api/": [126, 127],
+    "tests/": [128, 129, 130]
+  },
+  "hooks": {
+    "enabled": true,
+    "autoUpdate": true,
+    "updateInterval": 300
+  },
+  "settings": {
+    "autoStartTasks": true,
+    "autoCompleteTasks": false,
+    "trackFileChanges": true,
+    "excludePatterns": [
+      "node_modules/**",
+      "dist/**",
+      "*.log",
+      ".git/**"
+    ]
+  },
+  "keywords": {
+    "stripe": [123, 124],
+    "payment": [123, 124, 125],
+    "webhook": [126],
+    "authentication": [127, 128]
+  }
+}
